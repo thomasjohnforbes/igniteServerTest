@@ -1,87 +1,109 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
+<html lang="en" hidden>
+  <head>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+    <title>thomasjohnforbes Example-SMART-App 2</title>
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-    <script language="javascript" type="text/javascript" src="..\dist\fhir-client.js"></script>
-</head>
-<body>
-<h1>J FORBES JUNE1 ALTERED COPY</h1>
-<p>Reflects the Cerner training docs with some modifications</p>
-<p>Details setup under john.forbes@forbesinformation.ca</p>
-<p>called with https://thomasjohnforbes.github.io/igniteServerTest/code/client-js-master/launch-patient.html?iss=https://fhir-myrecord.cerner.com/dstu2/ec2458f2-1e24-41c8-b71b-0e701af7583d</p>
-<pre id="output">Loading...</pre>
-<script>
-const myLoinc = "http://loinc.org" // used to identify in the data set a specific set of data
+    <link rel='stylesheet' type='text/css' href='./src/css/example-smart-app.css'>
+    <link rel='stylesheet' type='text/css' href='./lib/css/cerner-smart-embeddable-lib-1.0.0.min.css'>
+  </head>
+  <body>
+    <div id='errors'>
+    </div>
+    <div id="loading" class="spinner">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div>
+    <div id='holder' >
+      <h2>Example-SMART-App-MS CODE on LOCALHOST SMART2</h2>
 
-const client  = new FHIR.client("https://r3.smarthealthit.org");
-const getPath = client.getPath; //create a getPath constant against the  client package
+      <h2>Patient Resource</h2>
+      <table>
+        <tr>
+          <th>First Name:</th>
+          <td id='fname'></td>
+        </tr>
+        <tr>
+          <th>Last Name:</th>
+          <td id='lname'></td>
+        </tr>
+        <tr>
+          <th>Gender:</th>
+          <td id='gender'></td>
+        </tr>
+        <tr>
+          <th>Date of Birth:</th>
+          <td id='birthdate'></td>
+        </tr>
+        <tr>
+          <th>Age:</th>
+          <td id='age'></td>
+        </tr>
+        <tr>
+          <th>CONTACT OPTIONS:</th>
+          <td id='tel'></td>
+        </tr>
+      </table>
+      <h2>Observation Resource</h2>
+      <table>
+        <tr>
+          <th>Height:</th>
+          <td id='height'></td>
+        </tr>
+        <tr>
+          <th>Systolic Blood Pressure:</th>
+          <td id='systolicbp'></td>
 
+        </tr>
+        <tr>
+          <th>Diastolic Blood Pressure:</th>
+          <td id='diastolicbp'></td>
+        </tr>
+        <tr>
+          <th>LDL:</th>
+          <td id='ldl'></td>
+        </tr>
+        <tr>
+          <th>HDL:</th>
+          <td id='hdl'></td>
+        </tr>
+      </table>
+     <h3>STRINGIFIED DATA</h3>
+      <table>
+        <tr>
+          <td style="font-size: 9 px; important" id='raw'></td>
+        </tr>
+      </table>
+    </div>
+    <!-- Required JS files to enable this page to embed within an MPage -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js'></script>
+    <script src='./lib/js/cerner-smart-embeddable-lib-1.0.0.min.js'></script>
 
-function getcodingType(myCodings = []) {
+    <!-- Application-level javascript-->
+    <script src='./src/js/example-smart-app.js'></script>
 
-   var myTmpVar = JSON.stringify(myCodings, null, 4)
-   // testing console.log("getCodingType: " + JSON.stringify(myCodings, null, 4))
-   var tVar = getPath(myCodings, "resource.code.coding")  // get the resource - RECALL this example is calling a bundle so we are starting from that level
-   var coding = tVar.find(c => c.system === myLoinc);   // narrow down the data set by finding the tree level that has the  system val loinc.org
-   var tVar2 = getPath(myCodings, "resource.valueQuantity")  //here getPath is enough to narrow the data set - don't need find
-   // getPath looks for the entity in the second parameter from the data set in the first parameter
-   // and returns an object of the entities in that path
-   // for example this might be the output of the statement above and in fact was for one peice of data
-   // so "resource.valueQuantity" discovers in its path the following
-   // {value: 0.5,unit: "mg/dL",system: "http://unitsofmeasure.org",  code: "mg/dL",}
-   // DEBUGGING - console.log("hault") // this gives me something to pasue on in debugging so i can see the contents of tVar and tVar2
-                                      //  note - this will stop on every  fetched assett with debug -- unremark above and set debug
-   // use try to be sure that  something is provided in case there was nothin in the getPath call
-    try{
-        var unitVal =  tVar2.code;
-        var measureVal =  tVar2.value
-    } catch{
-        var unitVal =  '';
-        var measureVal =  '';
-    }
-  var tVar3 = getPath(myCodings, "resource.referenceRange")  //here getPath is enough to narrow the data set - don't need find
-  console.log("hault") // this gives me something to pasue on in debugging so i can see the contents of tVar and tVar2
-                                      //  note - this will stop on every  fetched assett with debug -- unremark above and set debug
-   // use try to be sure that  something is provided in case there was nothin in the getPath call
-    try{ // formats high range
-        var unitVal2 =  "HighRange: " + tVar3[0].high.value + " " + tVar3[0].high.unit ;
-   //     var measureVal =  tVar2.value
-    } catch{
-        var unitVal2 =  '';
-   //     var measureVal =  '';
-    }
-    try{ // formats high range
-        var unitVal3 =  "LowRange: " + tVar3[0].low.value + " " + tVar3[0].low.unit ;
-   //     var measureVal =  tVar2.value
-    } catch{
-        var unitVal3 =  '';
-   //     var measureVal =  '';
-    }
+    <!-- FHIR Client JS Library -->
+    <script src='./lib/js/fhir-client-v0.1.12.js'></script>
 
-   return coding.display + "         " + measureVal + " " + unitVal + "          " + unitVal2 + " " + unitVal3|| "Unnamed Observation";
-}
+    <!-- Prevent session bleed caused by single threaded embedded browser and sessionStorage API -->
+    <!-- https://github.com/cerner/fhir-client-cerner-additions -->
+    <script src='./lib/js/fhir-client-cerner-additions-1.0.0.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+      extractData().then(
+        //Display Patient Demographics and Observations if extractData was success
+        function(p) {
+          drawVisualization(p);
+        },
 
-// fetch only the 
-function myDisplay(stuff){
-     const output = document.getElementById("output");
-     output.innerText = stuff instanceof Error ?
-        String(stuff) :
-        JSON.stringify(stuff, null, 4);
-     //   console.log("out: " + JSON.stringify(stuff, null, 4))
-}
-
-//var myPatient = getPatientId();
-client.request('/Observation?patient=smart-1642068') // returning a bundle
- .then(data => data.entry.map(item => getcodingType( // debug on this to see breakdown at the bundle level --see everything
-   // if debugging step forward one step to see breakdown in data object
-   // then drop down to entry level for drill down - then into resource 
-    item))) //stop on item so we can see whats inside it
- // .then(data => data.entry.map(item => getcodingType(
- //   getPath(item, "resource.code.coding")))) //stop on item so we can see whats inside it
-    .then(myDisplay)
- //const MyHoo2 = "ha"
-</script>
-</body>
+        //Display 'Failed to call FHIR Service' if extractData failed
+        function() {
+          $('#loading').hide();
+          $('#errors').html('<p> Failed to call FHIR Service </p>');
+        }
+      );
+    </script>
+  </body>
 </html>
