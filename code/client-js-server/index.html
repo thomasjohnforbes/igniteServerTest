@@ -5,8 +5,8 @@
     <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
     <title>thomasjohnforbes Example-SMART-App 2</title>
 
-    <link rel='stylesheet' type='text/css' href='./src/css/example-smart-app.css'>
-    <link rel='stylesheet' type='text/css' href='./lib/css/cerner-smart-embeddable-lib-1.0.0.min.css'>
+    <link rel='stylesheet' type='text/css' href='../client-js-master/src/css/example-smart-app.css'>
+    <link rel='stylesheet' type='text/css' href='../client-js-master/lib/css/cerner-smart-embeddable-lib-1.0.0.min.css'>
   </head>
   <body>
     <div id='errors'>
@@ -79,17 +79,17 @@
     </div>
     <!-- Required JS files to enable this page to embed within an MPage -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js'></script>
-    <script src='./lib/js/cerner-smart-embeddable-lib-1.0.0.min.js'></script>
+    <script src='../client-js-master/lib/js/cerner-smart-embeddable-lib-1.0.0.min.js'></script>
 
     <!-- Application-level javascript-->
-    <script src='./src/js/example-smart-app.js'></script>
+    <script src='../client-js-master/src/js/example-smart-app.js'></script>
 
     <!-- FHIR Client JS Library -->
-    <script src='./lib/js/fhir-client-v0.1.12.js'></script>
+    <script src='../client-js-master/lib/js/fhir-client-v0.1.12.js'></script>
 
     <!-- Prevent session bleed caused by single threaded embedded browser and sessionStorage API -->
     <!-- https://github.com/cerner/fhir-client-cerner-additions -->
-    <script src='./lib/js/fhir-client-cerner-additions-1.0.0.js'></script>
+    <script src='../client-js-master/lib/js/fhir-client-cerner-additions-1.0.0.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
       extractData().then(
