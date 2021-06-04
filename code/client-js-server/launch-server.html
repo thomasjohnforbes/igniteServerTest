@@ -20,25 +20,29 @@
     <script src='../client-js-master/lib/js/fhir-client-cerner-additions-1.0.0.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
-      $.support.cors = true;
-      var settings = {
-      "url": "https://authorization.cerner.com/tenants/ec2458f2-1e24-41c8-b71b-0e701af7583d/protocols/oauth2/profiles/smart-v1/personas/provider/authorize",
-      "method": "GET",
-      "timeout": 0,
-      "headers": {
-        "aud": "https://fhir-ehr-code.cerner.com/dstu2/ec2458f2-1e24-41c8-b71b-0e701af7583d",
-        "scope": "system/Patient.read",
-        "Content-Type": "application/x-www-form-urlencoded",
-        "Access-Control-Allow-Origin": "*.*",
-        "Authorization": "Bearer eyJhbGciOiJub25lIn0.eyJpc3MiOiJodHRwczpcL1wvYXV0aG9yaXphdGlvbi5jZXJuZXIuY29tXC8iLCJpYXQiOjE2MjI2NTAzNzcsInVybjpjZXJuZXI6YXV0aG9yaXphdGlvbjpzeXN0ZW0tYWNjb3VudC1jcmVkZW50aWFsLXRva2VuOnZlcnNpb246MSI6eyJ2ZXIiOiIxLjAiLCJzZWNyZXQiOiJrUW54VVgyVHljanZjM2Y5ZWcteDhCd2xPajRLT1JCZSIsImtleSI6IjU0ZjllODE4LTliM2UtNDI3ZS1iZjQzLTIxOTA1MDNlMmRhOSJ9LCJqdGkiOiJhMmQ5NzNmMy1jNWZjLTRjYTgtYTE5MC0xYjc2YTZlNzMzOGUifQ."
-       },
-     };
+     // $.support.cors = true;
+     // var settings = {
+    //  "url": "https://authorization.cerner.com/tenants/ec2458f2-1e24-41c8-b71b-0e701af7583d/protocols/oauth2/profiles/smart-v1/personas/provider/authorize",
+    //  "method": "GET",
+    //  "timeout": 0,
+    //  "headers": {
+    //    "aud": "https://fhir-ehr-code.cerner.com/dstu2/ec2458f2-1e24-41c8-b71b-0e701af7583d",
+    //    "scope": "system/Patient.read",
+    //    "Content-Type": "application/x-www-form-urlencoded",
+    //    "Access-Control-Allow-Origin": "*.*",
+    //    "Authorization": "Bearer eyJhbGciOiJub25lIn0.eyJpc3MiOiJodHRwczpcL1wvYXV0aG9yaXphdGlvbi5jZXJuZXIuY29tXC8iLCJpYXQiOjE2MjI2NTAzNzcsInVybjpjZXJuZXI6YXV0aG9yaXphdGlvbjpzeXN0ZW0tYWNjb3VudC1jcmVkZW50aWFsLXRva2VuOnZlcnNpb246MSI6eyJ2ZXIiOiIxLjAiLCJzZWNyZXQiOiJrUW54VVgyVHljanZjM2Y5ZWcteDhCd2xPajRLT1JCZSIsImtleSI6IjU0ZjllODE4LTliM2UtNDI3ZS1iZjQzLTIxOTA1MDNlMmRhOSJ9LCJqdGkiOiJhMmQ5NzNmMy1jNWZjLTRjYTgtYTE5MC0xYjc2YTZlNzMzOGUifQ."
+    //   },
+    // };
 
-    $.ajax(settings).done(function (response) {
-      console.log(response);
-    });
+   // $.ajax(settings).done(function (response) {
+   //   console.log(response);
+   // });
    
-
+          FHIR.oauth2.authorize({
+        'client_id': '73ab46d3-f2fd-40a8-86df-027e6cbd35a1',
+        'scope':  'patient/Patient.read patient/Observation.read launch/patient online_access openid profile',
+        'redirectUri': 'https://thomasjohnforbes.github.io/igniteServerTest/code/client-js-master/'
+      });
     </script>
     <div class="spinner">
       <div class="bounce1"></div>
