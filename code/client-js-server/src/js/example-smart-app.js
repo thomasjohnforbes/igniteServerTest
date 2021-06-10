@@ -170,6 +170,7 @@
     $('#ldl').html(p.ldl);
     $('#hdl').html(p.hdl);
     $('#raw').html(p.rawMessage);
+    console.log("completing visualization step");
   };
 
 })(window);
