@@ -1,9 +1,9 @@
 (function(window){
   window.extractData = function() {
     var ret = $.Deferred();
-
+    console.log("In example-smart-app")
     function onError() {
-      console.log('Loading error', arguments);
+      console.log('Loading error on SmartApp', arguments);
       ret.reject();
     }
 
